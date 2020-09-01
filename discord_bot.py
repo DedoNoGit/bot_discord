@@ -1,4 +1,5 @@
 import discord
+import os
 
 client = discord.Client()
 
@@ -15,4 +16,4 @@ async def on_message(message):
         await message.channel.send('salve salve cachorro')
 
 
-client.run('Njk1Mzc4Mjg2NjQ1MDg0MjI0.XoZTfw.KTp_5PeK5mnfdJVZL_CDf7R3He8')
+client.run('BOT_TOKEN')
