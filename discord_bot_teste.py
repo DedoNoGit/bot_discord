@@ -1,5 +1,5 @@
 import discord
-
+import config
 
 class MyClient(discord.Client):
     
@@ -15,4 +15,4 @@ class MyClient(discord.Client):
 
 client = MyClient()
 
-client.run('BOT_TOKEN')
+client.run(config.BOT_TOKEN)
