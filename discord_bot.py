@@ -6,10 +6,15 @@ import config
 def calculate(text):
 	#Calcula o que o usuário mandou.
 	try:
-		#Por questões de segurança, eu vou adicionar mais exceções, porém isso já deve servir.
-		return eval(text)
+		#Desafio pro Derick.
+		if 'import' in text:
+			raise SystemError
+		else:
+			return eval(text)
 	except ZeroDivisionError:
 		return 'VAI DIVIDIR POR ZERO NÃO, SEU ARROMBADO!'
+	except SystemError:
+		return 'VAI INVADIR MEU PC NÃO, SEU ARROMBADO!'
 	except:
 		return 'Refaz a conta aí, meu chapa, tem alguma coisa errado.'
 
@@ -37,9 +42,9 @@ async def ping(ctx):
 	#Mostra latência do bot .ping
 	await ctx.send(f'Bot latency: {round(client.latency * 1000)}ms')
 
-@client.command()
+@client.command(aliases=['m'])
 async def math(ctx, *, question):
-	#Implementa uma calculadora no bot. Ex: .math 15+3 = 18  ou .math sum([i for i in range(10)]) = 45
+	#Implementa uma calculadora no bot. Ex: .math 15+3 = 18  ou .m sum([i for i in range(10)]) = 45
 	await ctx.send(calculate(question))
 
 client.run(config.BOT_TOKEN)
