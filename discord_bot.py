@@ -2,6 +2,11 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import config
+from math import *
+from sympy import *
+
+x= symbols('x')
+
 
 def calculate(text):
 	#Calcula o que o usuário mandou.
@@ -47,4 +52,49 @@ async def math(ctx, *, question):
 	#Implementa uma calculadora no bot. Ex: .math 15+3 = 18  ou .m sum([i for i in range(10)]) = 45
 	await ctx.send(calculate(question))
 
+@client.command(aliases=['j'])
+async def join(ctx):
+	#faz o bot se conectar ao canal de voz
+	channel = ctx.message.author.voice.channel
+	voice = get(client.voice_clients, guild=ctx.guild)
+
+	if voice and voice.is_connected(): #se as pessoa está em um canal de voz ou o bot tbm está conectado em algum outro
+		await voice.move_to(channel)
+	else: #se nao estiver conectado em um canal já ele conecta
+		voice = await channel.connect()
+		print(f"O Bot se conectou ao canal {channel}")
+
+	#await voice.disconnect() #to fazendo isso duplamente pq teoricamente tem um bug que impede de tocar musica
+
+	#if voice and voice.is_connected(): #se as pessoa está em um canal de voz ou o bot tbm está conectado em algum outro
+	#	await voice.move_to(channel)
+	#else: #se nao estiver conectado em um canal já ele conecta
+	#	voice = await channel.connect()
+	#	print(f"O Bot se conectou ao canal {channel}")
+
+	await ctx.send(f"Me conectei ao canal {channel}")
+
+#@client.command(aliases=['p'])
+#async def play(ctx, url: string):
+#	#funcão de tocar coisas 
+#	channel = ctx.message.author.voice.channel
+#	voice = get(client.voice_clients, guild=ctx.guild)
+
+@client.command(aliases=['l'])
+async def leave(ctx):
+	#faz o bot sair do canal de voz
+	channel = ctx.message.author.voice.channel
+	voice = get(client.voice_clients, guild=ctx.guild)
+	
+	if voice and voice.is_connected(): 
+		await voice.disconnect()
+		print(f"o bot se desconectou do canal {channel}")
+		await print(f"Saí do canal {channel}")
+	else: 
+		print("O bot não estava conectado a nehum canal de voz")
+		await ctx.send(f"Não estou conectado a nenhum canal de voz")
+
+
+
+		
 client.run(config.BOT_TOKEN)
