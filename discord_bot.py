@@ -2,8 +2,8 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import config
-from math import *
 from sympy import *
+from math import *
 
 x = symbols('x')
 
