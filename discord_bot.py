@@ -2,6 +2,10 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import config
+from math import *
+from sympy import *
+
+x = symbols('x')
 
 def calculate(text):
 	#Calcula o que o usuário mandou.
